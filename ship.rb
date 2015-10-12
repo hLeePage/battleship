@@ -2,7 +2,7 @@ require_relative 'battleship'
 require_relative 'player'
 
 class Ship
-  attr_accessor :length
+  attr_accessor :length, :coordinates
 
   def initialize length
     @length = length
@@ -30,6 +30,16 @@ class Ship
   def covers?(x, y)
     return @coordinates.include?([x, y])
   end
+
+  def overlaps_with?(ship)
+    if (self.coordinates & ship.coordinates).length
+      return true
+    else
+      return "This is no good."
+    end
+  end
+
+
 
 
 end
