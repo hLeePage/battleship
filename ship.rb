@@ -1,5 +1,6 @@
 require 'matrix'
 require 'pry'
+require_relative 'hole'
 
 class Ship
 
@@ -7,14 +8,13 @@ class Ship
 
   def initialize length
     @length = length
-    @hits = 0
+    @ship_holes = []
   end
 
-  def place (x, y, horizontal)
-    if !@ship_coordinates
-      @ship_coordinates = []
+  def place x, y, horizontal
+    if @ship_holes.empty?
       @length.times do |a, b| 
-        @ship_coordinates << [x, y]
+        @ship_holes << Hole.new(x,y)
         if horizontal 
           x += 1
         else
@@ -24,19 +24,20 @@ class Ship
     end
   end
 
-  def covers? (x,y)
-    @ship_coordinates.include?([x,y])
+  def covers? x,y
+    @ship_holes.find{|hole| hole.x == x && hole.y == y}
   end
 
-  def overlaps_with? (ship)
-    return !(@ship_coordinates & ship.ship_coordinates).empty?
+  def overlaps_with? ship
+    return !(@ship_holes & ship.ship_holes).empty?
   end
 
 
 
-  def fire_at (x, y)   
-    if @ship_coordinates.include?([x,y])
-      @hits += 1
+  def fire_at x, y   
+    hole = covers? x, y
+    if hole
+      hole.hit!
       return true
     else
       return false
@@ -44,11 +45,10 @@ class Ship
   end
 
   def sunk? 
-    return @hits == @length
   end
 
 end
 
-#ship1 = Ship.new(4)
-#ship1.place(2,1,true)
-#binding.pry
+ship1 = Ship.new(4)
+ship1.place(2,1,true)
+binding.pry
