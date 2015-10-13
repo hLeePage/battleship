@@ -3,7 +3,7 @@ require_relative 'player'
 require 'pry'
 
 class Ship
-  attr_accessor :length, :coordinates
+  attr_accessor :length, :coordinates, :hits
 
   def initialize length
     @length = length
@@ -32,11 +32,40 @@ class Ship
     return @coordinates.include?([x, y])
   end
 
-
   def overlaps_with?(ship)
     !(self.coordinates & ship.coordinates).empty?
   end
+
+  def fire_at (x, y)
+    @hits = []
+    if self.coordinates.include?([x, y])
+      @hits << [x, y]
+      return true
+    else
+      return false
+    end
+  end
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
