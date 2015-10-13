@@ -7,9 +7,10 @@ class Ship
 
   def initialize length
     @length = length
+    @hits = 0
   end
 
-  def place(x, y, horizontal)
+  def place (x, y, horizontal)
     if !@ship_coordinates
       @ship_coordinates = []
       @length.times do |a, b| 
@@ -23,16 +24,27 @@ class Ship
     end
   end
 
-  def covers?(x,y)
+  def covers? (x,y)
     @ship_coordinates.include?([x,y])
   end
 
-  def overlaps_with?(ship)
+  def overlaps_with? (ship)
     return !(@ship_coordinates & ship.ship_coordinates).empty?
   end
 
-  def fire_at (x, y)
-    
+
+
+  def fire_at (x, y)   
+    if @ship_coordinates.include?([x,y])
+      @hits += 1
+      return true
+    else
+      return false
+    end
+  end
+
+  def sunk? 
+    return @hits == @length
   end
 
 end
