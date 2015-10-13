@@ -23,11 +23,8 @@ class Hole
     @state == :miss
   end
 
-  def === hole
-    if self.x == hole.x && self.y == hole.y && self.state == hole.state
-      return true
-    end
-    return false
+  def to_arr 
+    return Array[self.x, self.y]
   end
 
 end
