@@ -4,7 +4,7 @@ require_relative 'hole'
 
 class Ship
 
-  attr_accessor :length, :ship_coordinates
+  attr_accessor :length, :ship_holes
 
   def initialize length
     @length = length
@@ -49,6 +49,13 @@ class Ship
 
 end
 
+#=begin
 ship1 = Ship.new(4)
-ship1.place(2,1,true)
+ship1.place(2, 1, true)
+ship2 = Ship.new(4)
+ship2.place(3, 1, true)
+ship3 = Ship.new(4)
+ship3.place(2, 1, false)
 binding.pry
+#=end
+
