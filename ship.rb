@@ -1,77 +1,42 @@
-
-require_relative 'player'
+require 'matrix'
 require 'pry'
 
 class Ship
-  attr_accessor :length, :coordinates, :hits
+
+  attr_accessor :length, :ship_coordinates
 
   def initialize length
     @length = length
   end
 
-  def place(x, y, horizontal)   
-    if !@coordinates
-      if horizontal == true
-        #generate a range for the x component
-        stop = x + length - 1
-        x_range = (x..stop).to_a
-        @coordinates = x_range.map { |x| [x,y]}
-
-      elsif horizontal == false
-      #generate a range for the y component
-        stop = x + length - 1
-        y_range = (y..stop).to_a
-        @coordinates = y_range.map { |y| [x,y]}
+  def place(x, y, horizontal)
+    if !@ship_coordinates
+      @ship_coordinates = []
+      @length.times do |a, b| 
+        @ship_coordinates << [x, y]
+        if horizontal 
+          x += 1
+        else
+          y += 1
+        end
       end
-    else
-      puts "Ship cannot be placed twice."
     end
   end
 
-  def covers?(x, y)
-    return @coordinates.include?([x, y])
+  def covers?(x,y)
+    @ship_coordinates.include?([x,y])
   end
 
   def overlaps_with?(ship)
-    !(self.coordinates & ship.coordinates).empty?
+    return !(@ship_coordinates & ship.ship_coordinates).empty?
   end
 
   def fire_at (x, y)
-    @hits = []
-    if self.coordinates.include?([x, y])
-      @hits << [x, y]
-      return true
-    else
-      return false
-    end
+    
   end
+
 end
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#ship1 = Ship.new(4)
+#ship1.place(2,1,true)
+#binding.pry
