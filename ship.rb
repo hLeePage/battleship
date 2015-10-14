@@ -29,7 +29,9 @@ class Ship
   end
 
   def overlaps_with? ship
-    
+    self.ship_holes.each do |hole| 
+      hole.to_arr
+    end
   end
 
 
