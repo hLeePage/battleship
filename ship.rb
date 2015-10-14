@@ -45,18 +45,17 @@ class Ship
   end
 
   def sunk? 
-    @ship_holes.find{|hole| hole.state == :hit}.count == @length
+    if @ship_holes.count == 0
+      return false
+    else
+      return !@ship_holes.find{|hole| hole.state == :empty}   
+    end
   end
 
 end
 
-#=begin
-ship1 = Ship.new(4)
-ship1.place(2, 1, true)
-ship2 = Ship.new(4)
-ship2.place(3, 1, true)
-ship3 = Ship.new(4)
-ship3.place(2, 1, false)
-binding.pry
-#=end
+  
+
+
+  
 
