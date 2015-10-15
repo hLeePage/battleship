@@ -3,10 +3,15 @@ require_relative 'battleship'
 
 class Grid
 
-  def has_ship_on? x, y
-   false
+  def initialize
+    @ships = []
   end
 
+  def has_ship_on? x, y
+    @ships.find {|ship| ship.covers?(x,y)}
+  end
+
+=begin
   def display
     
     puts "    1   2   3   4   5   6   7   8   9   10"
@@ -19,6 +24,14 @@ class Grid
 
   def border
     "  -----------------------------------------"
+  end
+=end
+
+  def place_ship(ship, x, y, horizontal)  
+    ship.place(x, y, horizontal)    
+    unless @ships.include?(ship)
+    @ships << ship
+    end
   end
 
 end 

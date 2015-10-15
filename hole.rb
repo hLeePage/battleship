@@ -23,8 +23,4 @@ class Hole
     @state == :miss
   end
 
-  def to_arr 
-    return Array[self.x, self.y]
-  end
-
 end

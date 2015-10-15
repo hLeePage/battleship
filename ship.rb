@@ -11,6 +11,24 @@ class Ship
     @ship_holes = []
   end
 
+# An alternate route for this
+=begin
+  def occupied_coordinates
+    list = []
+    x = @x
+    y = @y
+    $length.times do 
+      list << [x,y]
+      if @horizontal
+        x += 1
+      else 
+        y += 1
+      end
+    end
+    list
+  end
+=end
+
   def place x, y, horizontal
     if @ship_holes.empty?
       @length.times do |a, b| 
@@ -24,6 +42,7 @@ class Ship
     end
   end
 
+
   def covers? x,y
     @ship_holes.find{|hole| hole.x == x && hole.y == y}
   end
@@ -31,7 +50,6 @@ class Ship
   def overlaps_with? other_ship
     @ship_holes.find{|hole| other_ship.covers?(hole.x, hole.y)} 
   end
-
 
 
   def fire_at x, y   
@@ -44,6 +62,7 @@ class Ship
     end
   end
 
+
   def sunk? 
     if @ship_holes.count == 0
       return false
@@ -51,7 +70,6 @@ class Ship
       return !@ship_holes.find{|hole| hole.state == :empty}   
     end
   end
-
 end
 
   
