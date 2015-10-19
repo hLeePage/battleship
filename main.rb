@@ -1,5 +1,5 @@
-require_relative 'battleship'
-require_relative 'player'
-require_relative 'ship'
+require './battleship'
 
-deployed_ships = []
+puts "What is your name?"
+name = gets.chomp
+Game.new(HumanPlayer.new(name), ComputerPlayer.new).play
